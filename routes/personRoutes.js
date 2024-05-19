@@ -1,24 +1,21 @@
 const express = require('express');
 const router= express.Router()
 const person=require('./../models/person');
-
-router.post('/',async(req,res)=>{
+router.post('/', async (req, res) => {
     try {
-        const data= req.body   // assuming req body contains the person data
-       
-        //create a new person document using the mongoose model
-        const newPerson = new person(data);
-        //save the new person to the database
-        const responce = await newPerson.save();
-        console.log('data saved');
-        res.status(200).json()
-    } catch (error) {
-        console.log(err);
-        res.status(500).json({error:'internal server error'})
-        
-    }
-})
+        const data = req.body; // Assuming req body contains the person data
 
+        // Create a new person document using the mongoose model
+        const newPerson = new person(data); // Ensure 'Person' is the correct model name
+        // Save the new person to the database
+        const response = await newPerson.save();
+        console.log('Data saved');
+        res.status(200).json(response); // Return the saved document or some relevant data
+    } catch (error) {
+        console.log(error); // Corrected to use 'error'
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 //Get method to get the person
 
